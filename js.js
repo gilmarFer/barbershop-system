@@ -16,3 +16,10 @@ let person = {
 
 delete person.age; // or delete person["age"];
 console.log(person);
+
+
+mongodb://myDBReader:D1fficultP%40ssw0rd@mongodb0.example.com:27017/?authSource=admin
+
+
+mongodb://adm:FYHGQpMWq73Wqwho@cloud.mongodb.com:27017/?authSource=admin
+
