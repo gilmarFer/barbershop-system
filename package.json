@@ -9,7 +9,8 @@
     "test:unit": " npm test -- --watch -c jest-unit-config.js",
     "clear_jest": "jest --clearCache",
     "build": "tsc",
-    "start": "ts-node-dev src/main/server.ts",
+    "start": "node dist/main/server.js",
+    "start:dev": "ts-node-dev src/main/server.ts",
     "start:tsc": "tsc && node dist/main/server.js"
   },
   "keywords": [],
@@ -37,6 +38,9 @@
     "ts-node": "^10.1.0",
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.3.2"
+  },
+  "engines": {
+    "node": "14.x"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
