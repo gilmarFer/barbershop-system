@@ -24,11 +24,12 @@ export class RegisterNewUserAbstract implements RegisterNewUser {
       params.password,
     );
     const userWithHashedPass = { ...params, password: encrypterPass };
+    userWithHashedPass.key = '';
     const user = await this.registerNewUserRepository.registerNewUser(
       userWithHashedPass,
     );
     delete user.body.password;
-    delete user.body.key;
+    console.log(user);
     return { isValid: true, body: user.body };
   }
 }
