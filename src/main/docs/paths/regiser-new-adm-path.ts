@@ -1,7 +1,7 @@
 export const registerNewAdmPath = {
   post: {
     tags: ['Admin'],
-    summary: 'Api para registart um adm',
+    summary: 'Api para registrar um novo adm do sistema',
     requestBody: {
       content: {
         'application/json': {

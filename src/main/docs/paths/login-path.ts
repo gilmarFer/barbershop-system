@@ -1,7 +1,7 @@
 export const loginPath = {
   post: {
     tags: ['Login'],
-    summary: 'Api para autenticar usuario',
+    summary: 'Api para autenticar um Admin',
     requestBody: {
       // description: 'Sucesso',
       content: {

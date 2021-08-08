@@ -1,7 +1,7 @@
 export const loadByPhonePath = {
   post: {
     tags: ['To Schedule'],
-    summary: 'Api para buscar agendamento baseado em numero de telefone',
+    summary: 'Api para buscar agendamentos baseado em número de telefone',
     requestBody: {
       content: {
         'application/json': {

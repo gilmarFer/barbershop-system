@@ -31,7 +31,7 @@ export default {
   info: {
     title: 'Barbershop Schedule API',
     description: 'Api para agendamento de um barbeiro',
-    version: '1.0.0',
+    version: '1.0.1',
   },
   servers: [
     {
