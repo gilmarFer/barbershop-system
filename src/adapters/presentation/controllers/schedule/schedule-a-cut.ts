@@ -13,9 +13,9 @@ export class ScheduleACutController implements Controller {
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const { name, phone, date } = httpRequest.body;
-      if (!name || !phone || !date) {
-        return badRequest(new Error('Name, phone or data is invalid'));
+      const { name, phone, date, barber } = httpRequest.body;
+      if (!name || !phone || !date || barber < 0 || barber == null) {
+        return badRequest(new Error('Name, phone, data or barber is invalid'));
       }
       const dateToDate = new Date(date);
       if (dateToDate < new Date()) {
@@ -25,6 +25,7 @@ export class ScheduleACutController implements Controller {
         name,
         phone,
         date: dateToDate,
+        barber,
       });
       if (!schedule.isValid) {
         return badRequest(new Error(schedule.errorName));

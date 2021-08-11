@@ -8,7 +8,11 @@ export class ScheduleACutAbstract implements ScheduleACut {
 
   async add(userData: ScheduleACut.Params): Promise<ScheduleACut.Result> {
     const getAvaliableDates =
-      await this.scheduleACutRepository.fakeAdmFreeDates();
+      await this.scheduleACutRepository.getAdmFreeDates();
+
+    const barbers = getAvaliableDates.barbers;
+    if (userData.barber > barbers.length - 1)
+      return { isValid: false, errorName: 'Barber not found' };
 
     const isDayAvaliable = getAvaliableDates.days.includes(
       userData.date.getDay(),
@@ -30,12 +34,16 @@ export class ScheduleACutAbstract implements ScheduleACut {
     if (!isHourAvaliable)
       return { isValid: false, errorName: 'Hour is unavailable' };
 
-    const isFreeHour = await this.scheduleACutRepository.isHourFree(
+    const isFreeHour = await this.scheduleACutRepository.isHourAndBarberFree(
       userData.date,
+      userData.barber,
     );
     if (!isFreeHour.isValid)
       return { isValid: false, errorName: 'Hours is not free' };
 
-    return this.scheduleACutRepository.addNewschedule(userData);
+    const barber = getAvaliableDates.barbers[userData.barber];
+    const schedule = await this.scheduleACutRepository.addNewschedule(userData);
+    schedule.body.barber = barber;
+    return { isValid: true, body: schedule.body };
   }
 }

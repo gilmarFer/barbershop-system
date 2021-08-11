@@ -25,6 +25,9 @@ export const loadByPhoneSchema = {
       date: {
         type: 'string',
       },
+      barber: {
+        type: 'number',
+      },
     },
   },
 };

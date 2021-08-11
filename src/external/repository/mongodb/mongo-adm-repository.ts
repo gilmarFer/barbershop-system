@@ -13,11 +13,24 @@ export class MongoAdmRepository
     const admCollection = MongoHelper.getCollection(
       process.env.ADM_COLLECTION || 'adm',
     );
-    params.key = '';
-    (await admCollection).drop();
-    const admConfig = await (await admCollection).insertOne(params);
-    const admFiXId = MongoHelper.fixIdUnity(admConfig.ops[0]);
-    return { isValid: true, body: admFiXId };
+    params.key = '1';
+    const isAnotherAdmConfigSaved = await (
+      await admCollection
+    ).findOne({ key: '1' });
+    if (!isAnotherAdmConfigSaved) {
+      const admConfig = await (await admCollection).insertOne(params);
+      const admFiXId = MongoHelper.fixIdUnity(admConfig.ops[0]);
+      return { isValid: true, body: admFiXId };
+    } else {
+      (await admCollection).findOneAndUpdate(
+        { key: '1' },
+        { $set: params },
+        { upsert: true },
+      );
+      const admConfig = await (await admCollection).findOne({ key: '1' });
+      const admFiXId = MongoHelper.fixIdUnity(admConfig);
+      return { isValid: true, body: admFiXId };
+    }
   }
 
   async loadAdmConfig(): Promise<LoadAdmConfigs.Result> {

@@ -26,5 +26,11 @@ export const loadAdmConfigSchema = {
         type: 'string',
       },
     },
+    barber: {
+      type: 'array',
+      items: {
+        type: 'string',
+      },
+    },
   },
 };

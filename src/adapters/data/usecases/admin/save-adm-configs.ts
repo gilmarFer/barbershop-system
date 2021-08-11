@@ -12,7 +12,6 @@ export class SaveAdmConfigsAbstract implements SaveAdmConfigs {
     const isAdmAuth = this.admAuth.isAdmAuth(params.key);
     if (!isAdmAuth) return { isValid: false, errorName: 'ACCESS DENIED' };
     const admConfigs = await this.saveAdmConfigRepository.saveAdmConfig(params);
-    delete admConfigs.body.key;
     return { isValid: true, body: admConfigs.body };
   }
 }

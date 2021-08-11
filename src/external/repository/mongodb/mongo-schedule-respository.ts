@@ -26,11 +26,14 @@ export class MongoScheduleRepository
     return { isValid: true, body: fixId };
   }
 
-  async isHourFree(date: Date): Promise<ScheduleACut.Result> {
+  async isHourAndBarberFree(
+    date: Date,
+    barber: number,
+  ): Promise<ScheduleACut.Result> {
     const userCollection = await MongoHelper.getCollection(
       process.env.SCHEDULE_COLLECTION || 'schedule',
     );
-    const schedule = await userCollection.findOne({ date });
+    const schedule = await userCollection.findOne({ date, barber });
     if (schedule) {
       return { isValid: false };
     }
@@ -54,11 +57,13 @@ export class MongoScheduleRepository
     const userCollection = await MongoHelper.getCollection(
       process.env.SCHEDULE_COLLECTION || 'schedule',
     );
+    const finalDate = new Date(params.finalDate);
+    finalDate.setDate(finalDate.getDate() + 1);
     const scheludesList = await userCollection
       .find({
         date: {
           $gte: new Date(params.initialDate),
-          $lt: new Date(params.finalDate),
+          $lt: new Date(finalDate),
         },
       })
       .toArray();
@@ -66,20 +71,16 @@ export class MongoScheduleRepository
     return { isValid: true, body: listWithFixId };
   }
 
-  async fakeAdmFreeDates(): Promise<{ days: number[]; hours: Date[] }> {
-    return Promise.resolve({
-      days: [1, 2, 3, 4, 5],
-      hours: [
-        new Date('2000-01-01T08:00:00'),
-        new Date('2000-01-01T08:30:00'),
-        new Date('2000-01-01T09:00:00'),
-        new Date('2000-01-01T09:30:00'),
-        new Date('2000-01-01T10:00:00'),
-        new Date('2000-01-01T10:30:00'),
-        new Date('2000-01-01T11:00:00'),
-        new Date('2000-01-01T11:30:00'),
-        new Date('2000-01-01T12:00:00'),
-      ],
-    });
+  async getAdmFreeDates(): Promise<{
+    days: number[];
+    hours: Date[];
+    barbers: string[];
+  }> {
+    const admCollection = await MongoHelper.getCollection(
+      process.env.ADM_COLLECTION || 'adm',
+    );
+    const admConfigs = await admCollection.findOne({ key: '1' });
+    const admConfigsWithFixId = MongoHelper.fixIdUnity(admConfigs);
+    return admConfigsWithFixId;
   }
 }

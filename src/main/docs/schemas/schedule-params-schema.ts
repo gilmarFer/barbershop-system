@@ -10,8 +10,11 @@ export const scheduleParamsSchema = {
     data: {
       type: 'string',
     },
+    barber: {
+      type: 'number',
+    },
   },
-  require: ['nome', 'phone', 'data'],
+  require: ['nome', 'phone', 'data', 'barber'],
 };
 
 export const scheduleSchema = {
@@ -27,6 +30,9 @@ export const scheduleSchema = {
       type: 'string',
     },
     data: {
+      type: 'string',
+    },
+    barber: {
       type: 'string',
     },
   },

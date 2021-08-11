@@ -31,6 +31,9 @@ export const loadByDataSchema = {
       date: {
         type: 'string',
       },
+      barber: {
+        type: 'number',
+      },
     },
   },
 };

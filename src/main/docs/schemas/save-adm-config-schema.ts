@@ -13,7 +13,12 @@ export const saveAdmConfigParamsSchema = {
         type: 'string',
       },
     },
-
+    barbers: {
+      type: 'array',
+      items: {
+        type: 'string',
+      },
+    },
     key: {
       type: 'string',
     },
@@ -34,6 +39,12 @@ export const saveAdmConfigSchema = {
       },
     },
     hours: {
+      type: 'array',
+      items: {
+        type: 'string',
+      },
+    },
+    barbes: {
       type: 'array',
       items: {
         type: 'string',

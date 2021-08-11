@@ -29,7 +29,6 @@ export class RegisterNewUserAbstract implements RegisterNewUser {
       userWithHashedPass,
     );
     delete user.body.password;
-    console.log(user);
     return { isValid: true, body: user.body };
   }
 }

@@ -15,13 +15,14 @@ export class SaveAdmConfigsController implements Controller {
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const { days, hours, key } = httpRequest.body;
-      if (!days || !hours)
-        return badRequest(new Error('Days or hours are invalid'));
+      const { days, hours, barbers, key } = httpRequest.body;
+      if (!days || !hours || !barbers)
+        return badRequest(new Error('Days, hours or barber are invalid'));
       const saveConfig = await this.saveAdmConfigsAbstract.save({
         days,
         hours,
         key,
+        barbers,
       });
       if (!saveConfig.isValid)
         return badRequest(new Error(saveConfig.errorName));

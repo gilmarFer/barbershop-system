@@ -1,3 +1,5 @@
+import { SchedulingModel } from '../../entites/scheduling';
+
 export interface ScheduleACut {
   add(userData: ScheduleACut.Params): Promise<ScheduleACut.Result>;
 }
@@ -7,6 +9,7 @@ export namespace ScheduleACut {
     name: string;
     phone: number;
     date: Date;
+    barber: number;
   };
 
   export type Result = {

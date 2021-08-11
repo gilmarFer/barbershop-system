@@ -3,4 +3,5 @@ export interface SchedulingModel {
   name: string;
   phone: number;
   date: Date;
+  barber: string;
 }

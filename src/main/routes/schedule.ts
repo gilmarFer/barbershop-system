@@ -5,7 +5,7 @@ import { makeLoadScheduleByPhoneController } from '../factore/schedule/load-sche
 import { makeScheduleACuteController } from '../factore/schedule/schedule-a-cute';
 
 export default (router: Router): void => {
-  router.post('/add-a-cut', adaptRoute(makeScheduleACuteController()));
+  router.post('/schedule-a-cut', adaptRoute(makeScheduleACuteController()));
   router.post(
     '/load-by-phone',
     adaptRoute(makeLoadScheduleByPhoneController()),
